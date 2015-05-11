@@ -4,27 +4,21 @@ import (
 	"fmt"
 	"flag"
 	"github.com/lukeroth/gdal"
-
 )
 
 func main() {
 	flag.Parse()
 	filename := flag.Arg(0)
 	if filename == "" {
-		fmt.Printf("Usage: test_tiff [filename]\n")
+		fmt.Printf("Usage: test_read [filename]\n")
 		return
 	}
 	fmt.Printf("Filename: %s\n", filename)
 	
-	/*
-	fmt.Printf("Loading driver\n")
-	driver, err := gdal.GetDriverByName("GTiff")
-	if err != nil {
-		fmt.Println(err.Error())
-		return
-	}
-	*/
-	
+	fmt.Printf("GDAL v%d.%d.%d Build %d Date %d Name %s\n", 
+		gdal.VERSION_MAJOR, gdal.VERSION_MINOR, gdal.VERSION_REV, gdal.VERSION_BUILD, 
+		gdal.RELEASE_DATE, gdal.RELEASE_NAME)
+		
 	dataset, err := gdal.Open(filename,gdal.ReadOnly)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -48,6 +42,5 @@ func main() {
 		bx,by := rasterband.BlockSize()
 		fmt.Printf("\tBlocksize X: %d, Y: %d\n", bx, by)
 	}
-	
-
 }
+
