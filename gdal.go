@@ -521,6 +521,12 @@ func (driver Driver) LongName() string {
 	return C.GoString(C.GDALGetDriverLongName(cDriver))
 }
 
+// Return the creation option list XML
+func (driver Driver) GetDriverCreationOptionList() string {
+	cDriver := driver.cval
+	return C.GoString(C.GDALGetDriverCreationOptionList(cDriver))
+}
+
 /* ==================================================================== */
 /*      GDAL_GCP                                                        */
 /* ==================================================================== */
